@@ -1,4 +1,4 @@
 export interface IUserTokenPayload {
-    email: string;
-    uuid: string;
+    phone_number: string;
+    id: string;
 }

@@ -10,7 +10,7 @@ export class UserController {
     ) {}
 
     @Post('sign-up')
-    handleSignUp(@Body() body: IUserSignUpPayload): IDatabaseOperationResponse {
+    handleSignUp(@Body() body: IUserSignUpPayload): Promise<IDatabaseOperationResponse> {
         return this.userService.signUserUp(body);
     }
 
