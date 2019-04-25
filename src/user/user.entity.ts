@@ -34,4 +34,7 @@ export class UserEntity {
 
     @Column({ type: 'char', nullable: true, length: 18 })
     telephone: string;
+
+    @Column({ type: 'text', nullable: true, default: 'user' })
+    roles: string;
 }

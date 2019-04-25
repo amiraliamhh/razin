@@ -86,7 +86,6 @@ export class UserService {
     }
 
     async updateUser(payload: IUserUpdateInfoPayload, user: UserEntity): Promise<IDatabaseOperationResponse> {
-        console.log(process.env.PRODUCTION)
         try {
             await this.userEntity.update({
                 id: user.id,
