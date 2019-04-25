@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column } from 'typeor
 @Entity()
 export class UserEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: number;
+    id: string;
 
     @CreateDateColumn()
     date_created: string;
@@ -25,4 +25,7 @@ export class UserEntity {
 
     @Column({ type: 'char', nullable: false, length: 100 })
     password: string;
+
+    @Column({ type: 'text', nullable: false, default: false })
+    phone_number_is_approved: boolean;
 }

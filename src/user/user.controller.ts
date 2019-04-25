@@ -1,4 +1,6 @@
-import { Controller, Post, Put, Body, } from '@nestjs/common';
+import { Controller, Post, Put, Body, Res, } from '@nestjs/common';
+import { Response } from 'express';
+
 import { IUserSignUpPayload, IUserLoginPayload, IUserUpdateInfoPayload } from './user.interface';
 import { UserService } from './user.service';
 import { IDatabaseOperationResponse } from 'src/app.interface';
@@ -15,8 +17,9 @@ export class UserController {
     }
 
     @Post('login')
-    handleLogin(@Body() body: IUserLoginPayload): IDatabaseOperationResponse {
-        return this.userService.loginUser(body);
+    async handleLogin(@Body() body: IUserLoginPayload, @Res() res: Response) {
+        const response = await this.userService.loginUser(body);
+        res.status(response.status || 200).json(response);
     }
 
     @Put('update-info')
