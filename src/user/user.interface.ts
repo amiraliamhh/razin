@@ -9,8 +9,6 @@ export interface IUserLoginPayload {
 }
 
 export interface IUserUpdateInfoPayload {
-    old_password: string;
-    new_password: string;
     first_name: string;
     last_name: string;
     address: string;

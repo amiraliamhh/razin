@@ -1,9 +1,10 @@
-import { Controller, Post, Put, Body, Res, } from '@nestjs/common';
+import { Controller, Post, Put, Body, Res, Req, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 
 import { IUserSignUpPayload, IUserLoginPayload, IUserUpdateInfoPayload } from './user.interface';
 import { UserService } from './user.service';
 import { IDatabaseOperationResponse } from 'src/app.interface';
+import { AuthGuard } from 'src/authentication/auth.guard';
 
 @Controller('user')
 export class UserController {
@@ -23,7 +24,8 @@ export class UserController {
     }
 
     @Put('update-info')
-    handleUpdate(@Body() body: IUserUpdateInfoPayload): IDatabaseOperationResponse {
-        return this.userService.updateUser(body);
+    @UseGuards(AuthGuard)
+    handleUpdate(@Body() body: IUserUpdateInfoPayload, @Req() req: any): Promise<IDatabaseOperationResponse> {
+        return this.userService.updateUser(body, req.auth_user);
     }
 }

@@ -26,6 +26,12 @@ export class UserEntity {
     @Column({ type: 'char', nullable: false, length: 100 })
     password: string;
 
-    @Column({ type: 'text', nullable: false, default: false })
+    @Column({ type: 'boolean', nullable: false, default: false })
     phone_number_is_approved: boolean;
+
+    @Column({ type: 'text', nullable: true })
+    postal_code: string;
+
+    @Column({ type: 'char', nullable: true, length: 18 })
+    telephone: string;
 }

@@ -37,7 +37,10 @@ export class UserService {
             return { err: false, data: { token } };
         } catch(e) {
             console.error(e);
-            return { err: true, msg: e };
+            return { 
+                err: true, 
+                msg: process.env.PRODUCTION ? "error while generating jwt token" : e 
+            };
         }
     }
 
@@ -82,13 +85,23 @@ export class UserService {
         };
     }
 
-    updateUser(payload: IUserUpdateInfoPayload): IDatabaseOperationResponse {
-        return {
-            data: {
-                token: 'token',
-            },
-            err: false,
-        };
+    async updateUser(payload: IUserUpdateInfoPayload, user: UserEntity): Promise<IDatabaseOperationResponse> {
+        console.log(process.env.PRODUCTION)
+        try {
+            await this.userEntity.update({
+                id: user.id,
+            }, this.validateUserInfo(payload));
+        
+            return {
+                err: false,
+            };
+
+        } catch(e) {
+            return {
+                err: true,
+                msg: process.env.PRODUCTION ? "error while updating user" : e,
+            }
+        }
     }
 
     private validate({ phone_number, password }: IUserSignUpPayload): { err: boolean, msg: string } {
@@ -107,5 +120,24 @@ export class UserService {
         }
 
         return { err, msg };
+    }
+
+    private validateUserInfo(user: IUserUpdateInfoPayload): Partial<UserEntity> {
+        const allowedProps = [
+            "first_name",
+            "last_name",
+            "address",
+            "telephone",
+            "postal_code",
+        ];
+        let userInfo: Partial<UserEntity> = {};
+
+        for (const prop in user) {
+            if (allowedProps.indexOf(prop) > -1) {
+                userInfo[prop] = user[prop];
+            }
+        }
+
+        return userInfo;
     }
 }
