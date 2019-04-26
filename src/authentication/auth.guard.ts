@@ -1,5 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { GetRoles } from './auth.utils';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -9,7 +10,19 @@ export class AuthGuard implements CanActivate {
 
     canActivate(context: ExecutionContext): Promise<boolean>|boolean {
         const roles = this.reflector.get<string[]>('roles', context.getHandler());
-        console.log('roles', roles);
-        return context.switchToHttp().getRequest().auth;
+        const request = context.switchToHttp().getRequest();
+        if (!roles || !request.auth) {
+            return request.auth;
+        }
+
+        const userRoles = GetRoles(request.auth_user.roles);
+
+        for (const role of roles) {
+            if (userRoles.indexOf(role) > -1) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

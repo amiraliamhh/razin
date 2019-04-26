@@ -17,3 +17,10 @@ export function AddRemoveRole(roles: string, role: string, removing?: boolean): 
     rolesArr.push(role);
     return rolesArr.join("-");
 }
+
+export function GetRoles(roles: string): string[] {
+    roles = roles.replace(/^\-/, "").replace(/\-$/, "");
+    let rolesArr = roles.split("-");
+
+    return rolesArr;
+}

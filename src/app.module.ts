@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { OrderModule } from './order/order.module';
 import { AuthMiddleware } from './authentication/auth.middleware';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AuthMiddleware } from './authentication/auth.middleware';
     }),
     UserModule,
     OrderModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
