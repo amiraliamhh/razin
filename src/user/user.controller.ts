@@ -9,7 +9,7 @@ import { AuthGuard } from 'src/authentication/auth.guard';
 @Controller('user')
 export class UserController {
     constructor(
-        private readonly userService: UserService
+        private readonly userService: UserService,
     ) {}
 
     @Post('sign-up')

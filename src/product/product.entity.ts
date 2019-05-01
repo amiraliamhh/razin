@@ -7,4 +7,10 @@ export class ProductEntity {
 
     @Column({ type: 'text', nullable: false })
     name: string;
+
+    @Column({ type: 'simple-array', nullable: true })
+    gallery: string[];
+
+    @Column({ type: 'int', nullable: true })
+    off: number;
 }
