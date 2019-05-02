@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+    Controller, 
+    Get, 
+    Post, 
+    Req, 
+    UseGuards, 
+    Put, 
+    Delete,
+    Param, 
+} from '@nestjs/common';
 import { Request } from 'express';
 
 import { ProductService } from './product.service';
@@ -18,11 +27,31 @@ export class ProductController {
         return this.productService.getAllProducts();
     }
 
+    @Get(':id')
+    getOne(@Param() params: { id: string }): Promise<IDatabaseOperationResponse> {
+        return this.productService.getProductById(params.id);
+    }
+
     @Post()
     @UseGuards(AuthGuard)
     @Roles('admin')
     createProduct(@Req() req: Request): Promise<IDatabaseOperationResponse> {
         const body = (req.body as ProductEntity);
         return this.productService.createProduct(body);
+    }
+
+    @Put(':id')
+    @UseGuards(AuthGuard)
+    @Roles('admin')
+    updateProduct(@Req() req: Request): Promise<IDatabaseOperationResponse> {
+        const body = (req.body as ProductEntity);
+        return this.productService.updateProduct(body);
+    }
+
+    @Delete(':id')
+    @UseGuards(AuthGuard)
+    @Roles('admin')
+    deleteProduct(@Param() params: { id: string }): Promise<IDatabaseOperationResponse> {
+        return this.productService.deleteProduct(params.id);
     }
 }

@@ -13,4 +13,13 @@ export class ProductEntity {
 
     @Column({ type: 'int', nullable: true })
     off: number;
+
+    @Column({ type: 'boolean', default: true })
+    in_stock: boolean;
+
+    @Column({ type: 'text', nullable: true })
+    description: string;
+
+    @Column({ type: 'boolean', default: false })
+    archived: boolean;
 }
