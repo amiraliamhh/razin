@@ -13,7 +13,7 @@ export class OrderService {
         private readonly orderEntity: Repository<OrderEntity>
     ) {}
 
-    async createOrder(order: ICreateOrderPayload): Promise<IDatabaseOperationResponse> {
+    async createOrder(order: ICreateOrderPayload): Promise<IDatabaseOperationResponse<{}>> {
         try {
             await this.orderEntity.insert(order);
             return { err: false };

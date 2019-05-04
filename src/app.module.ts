@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import { OrderModule } from './order/order.module';
 import { AuthMiddleware } from './authentication/auth.middleware';
 import { ProductModule } from './product/product.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ProductModule } from './product/product.module';
     UserModule,
     OrderModule,
     ProductModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -28,14 +28,14 @@ export class ProductController {
     }
 
     @Get(':id')
-    getOne(@Param() params: { id: string }): Promise<IDatabaseOperationResponse> {
+    getOne(@Param() params: { id: string }): Promise<IDatabaseOperationResponse<ProductEntity>> {
         return this.productService.getProductById(params.id);
     }
 
     @Post()
     @UseGuards(AuthGuard)
     @Roles('admin')
-    createProduct(@Req() req: Request): Promise<IDatabaseOperationResponse> {
+    createProduct(@Req() req: Request): Promise<IDatabaseOperationResponse<{}>> {
         const body = (req.body as ProductEntity);
         return this.productService.createProduct(body);
     }
@@ -43,7 +43,7 @@ export class ProductController {
     @Put(':id')
     @UseGuards(AuthGuard)
     @Roles('admin')
-    updateProduct(@Req() req: Request): Promise<IDatabaseOperationResponse> {
+    updateProduct(@Req() req: Request): Promise<IDatabaseOperationResponse<{}>> {
         const body = (req.body as ProductEntity);
         return this.productService.updateProduct(body);
     }
@@ -51,7 +51,7 @@ export class ProductController {
     @Delete(':id')
     @UseGuards(AuthGuard)
     @Roles('admin')
-    deleteProduct(@Param() params: { id: string }): Promise<IDatabaseOperationResponse> {
+    deleteProduct(@Param() params: { id: string }): Promise<IDatabaseOperationResponse<{}>> {
         return this.productService.deleteProduct(params.id);
     }
 }

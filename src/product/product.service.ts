@@ -16,7 +16,7 @@ export class ProductService {
         return products;
     }
 
-    async getProductById(id: string): Promise<IDatabaseOperationResponse> {
+    async getProductById(id: string): Promise<IDatabaseOperationResponse<ProductEntity>> {
         const product = await this.productEntity.findOne({ id });
         return {
             data: product,
@@ -24,7 +24,7 @@ export class ProductService {
         };
     }
 
-    async createProduct(product: ProductEntity): Promise<IDatabaseOperationResponse> {
+    async createProduct(product: ProductEntity): Promise<IDatabaseOperationResponse<{}>> {
         try {
             await this.productEntity.insert(product);
             return {
@@ -38,7 +38,7 @@ export class ProductService {
         }
     }
 
-    async updateProduct(product: ProductEntity): Promise<IDatabaseOperationResponse> {
+    async updateProduct(product: ProductEntity): Promise<IDatabaseOperationResponse<{}>> {
         try {
             await this.productEntity.update(
                 { id: product.id }, 
@@ -56,7 +56,7 @@ export class ProductService {
         }
     }
 
-    async deleteProduct(id: string): Promise<IDatabaseOperationResponse> {
+    async deleteProduct(id: string): Promise<IDatabaseOperationResponse<{}>> {
         try {
             await this.productEntity.update(
                 { id },

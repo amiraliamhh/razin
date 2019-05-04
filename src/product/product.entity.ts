@@ -23,3 +23,5 @@ export class ProductEntity {
     @Column({ type: 'boolean', default: false })
     archived: boolean;
 }
+
+export type ProductEntityManual = Pick<ProductEntity, Exclude<keyof ProductEntity, "id">>;
