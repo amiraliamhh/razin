@@ -16,7 +16,7 @@ export class UserService {
         private readonly userEntity: Repository<UserEntity>
     ){}
 
-    async signUserUp({  phone_number, password }: IUserSignUpPayload): Promise<IDatabaseOperationResponse> {
+    async signUserUp({  phone_number, password }: IUserSignUpPayload): Promise<IDatabaseOperationResponse<any>> {
         const { err, msg } = this.validate({ phone_number, password });
 
         if (err) {
@@ -44,7 +44,7 @@ export class UserService {
         }
     }
 
-    async loginUser(payload: IUserLoginPayload): Promise<IDatabaseOperationResponse> {
+    async loginUser(payload: IUserLoginPayload): Promise<IDatabaseOperationResponse<any>> {
         const user = await this.userEntity.findOne({
             phone_number: payload.phone_number,
             phone_number_is_approved: true,
@@ -85,7 +85,7 @@ export class UserService {
         };
     }
 
-    async updateUser(payload: IUserUpdateInfoPayload, user: UserEntity): Promise<IDatabaseOperationResponse> {
+    async updateUser(payload: IUserUpdateInfoPayload, user: UserEntity): Promise<IDatabaseOperationResponse<{}>> {
         try {
             await this.userEntity.update({
                 id: user.id,

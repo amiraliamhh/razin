@@ -36,4 +36,18 @@ export class ManageProductsService {
             return errorFactory(e, "error while creating new product.");
         }
     }
+
+    async getProductById(id: string): Promise<IDatabaseOperationResponse<ProductEntity>> {
+        try {
+            const product = await this.productEntity.findOne({ id });
+
+            return {
+                data: product,
+                err: false,
+            }
+            
+        } catch (e) {
+            return errorFactory(e, "error while reading product.");
+        }
+    }
 }

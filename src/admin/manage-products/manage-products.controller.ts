@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Get, Post, Req } from '@nestjs/common';
+import { Controller, UseGuards, Get, Post, Req, Param } from '@nestjs/common';
 import { Request } from 'express';
 
 import { AuthGuard } from 'src/authentication/auth.guard';
@@ -20,6 +20,12 @@ export class ManageProductsController {
         const body = <ProductEntityManual>req.body;
         
         return this.manageProductsService.createNewProduct(body);
+    }
+
+    @Get("/:id")
+    @Roles("admin")
+    getProductById(@Param() param: { id: string }): Promise<IDatabaseOperationResponse<ProductEntity>> {
+        return this.manageProductsService.getProductById(param.id);
     }
 
     @Get()

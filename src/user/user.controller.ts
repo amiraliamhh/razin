@@ -13,7 +13,7 @@ export class UserController {
     ) {}
 
     @Post('sign-up')
-    handleSignUp(@Body() body: IUserSignUpPayload): Promise<IDatabaseOperationResponse> {
+    handleSignUp(@Body() body: IUserSignUpPayload): Promise<IDatabaseOperationResponse<any>> {
         return this.userService.signUserUp(body);
     }
 
@@ -25,7 +25,7 @@ export class UserController {
 
     @Put('update-info')
     @UseGuards(AuthGuard)
-    handleUpdate(@Body() body: IUserUpdateInfoPayload, @Req() req: any): Promise<IDatabaseOperationResponse> {
+    handleUpdate(@Body() body: IUserUpdateInfoPayload, @Req() req: any): Promise<IDatabaseOperationResponse<any>> {
         return this.userService.updateUser(body, req.auth_user);
     }
 }
